@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  warmup: MyString
+  workout: MyString
+  weight: 1
+  injury: MyString
+
+two:
+  warmup: MyString
+  workout: MyString
+  weight: 1
+  injury: MyString

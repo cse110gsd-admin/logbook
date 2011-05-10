@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Warmup:</b>
+  <%= @event.warmup %>
+</p>
+
+<p>
+  <b>Workout:</b>
+  <%= @event.workout %>
+</p>
+
+<p>
+  <b>Weight:</b>
+  <%= @event.weight %>
+</p>
+
+<p>
+  <b>Injury:</b>
+  <%= @event.injury %>
+</p>
+
+
+<%= link_to 'Edit', edit_event_path(@event) %> |
+<%= link_to 'Back', events_path %>
