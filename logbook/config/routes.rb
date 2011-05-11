@@ -1,4 +1,8 @@
 Logbook::Application.routes.draw do
+  get "pages/home"
+
+  get "pages/contact"
+
   resources :calendars
 
   resources :events
