@@ -3,6 +3,8 @@ Logbook::Application.routes.draw do
 
   get "pages/contact"
 
+  get "pages/about"
+
   resources :calendars
 
   resources :events
