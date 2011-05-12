@@ -1,5 +1,18 @@
+# == Schema Information
+# Schema version: 20110510070410
+#
+# Table name: users
+#
+#  id         :integer         not null, primary key
+#  name       :string(255)
+#  email      :string(255)
+#  password   :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class User < ActiveRecord::Base
-  #attr_accessor(:name, :email)
+  attr_accessible(:name, :email)
   has_many :events
   has_many :workouts
   has_many :calendars
@@ -32,7 +45,9 @@ class User < ActiveRecord::Base
   validates :password,	:presence => true,
 			:length => { :minimum => 5 } # minimum 5 char password.
 							
-  validates :email,	:format => { :with => email_regex } #checks that email is in email format
+  validates :email,	:presence => true,
+                        :uniqueness => {:case_sensitive => false},
+                        :format => { :with => email_regex } #checks that email is in email format
 
 end
 
