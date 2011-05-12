@@ -12,7 +12,8 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessible(:name, :email)
+  attr_accessor :password
+  attr_accessible :name, :email, :password, :password_confirmation
   has_many :events
   has_many :workouts
   has_many :calendars
@@ -43,12 +44,44 @@ class User < ActiveRecord::Base
 		 	:uniqueness => true  
 		 	#for uniqueness, optional "uniqueness => {:case_sensitive => ture/false } "
   validates :password,	:presence => true,
-			:length => { :minimum => 5 } # minimum 5 char password.
+                        :confirmation => true,
+			:length => { :within => 6..40 } # minimum 5 char password.
+
+  
 							
   validates :email,	:presence => true,
                         :uniqueness => {:case_sensitive => false},
                         :format => { :with => email_regex } #checks that email is in email format
+  before_save :encrypt_password
 
+  def has_password?(submitted_password)    
+    encrypted_password == encrypt(submitted_password)
+  end
+
+  def self.authenticate(email, submitted_passowrd)
+    user = find_by_email(email)
+    return nil if user.nil?
+    return user if user.has_password?(submitted_password)
+  end
+
+  private
+    
+    def encrypt_password
+      self.salt = make_salt if new_record?
+      self.encrypted_password = encrypt(password)
+    end
+  
+    def encrypt(string)
+      secure_hash("#{salt}--#{string}")
+    end
+
+    def make_salt
+      secure_hash("#{Time.now.utc}--#{password}")
+    end
+
+    def secure_hash(string)
+      Digest::SHA2.hexdigest(string)
+    end
 end
 
 
