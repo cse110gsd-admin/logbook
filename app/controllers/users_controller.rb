@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-  before_filter :authenticate, :only => [:edit, :update]
+  before_filter :authenticate, :only => [:edit, :update, :destroy]
   before_filter :correct_user, :only => [:edit, :update]
+  before_filter :admin_user, :only => :destroy
   # "Edit" and "Account Management" are the same.
 
 
@@ -101,6 +102,9 @@ class UsersController < ApplicationController
       redirect_to(root_path) unless current_user?(@user)
     end
 
+    def admin_user
+      redirect_to(root_path) unless current_user.admin?
+    end
 
 
 end
