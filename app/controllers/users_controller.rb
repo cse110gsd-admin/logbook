@@ -28,10 +28,10 @@ class UsersController < ApplicationController
     @title = "Sign up"
     @user = User.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @user }
-    end
+  #  respond_to do |format|
+   #   format.html # new.html.erb
+   #   format.xml  { render :xml => @user }
+   # end
   end
 
   # GET /users/1/edit
