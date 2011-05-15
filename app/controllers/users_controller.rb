@@ -1,4 +1,9 @@
 class UsersController < ApplicationController
+  before_filter :authenticate, :only => [:edit, :update]
+  before_filter :correct_user, :only => [:edit, :update]
+  # "Edit" and "Account Management" are the same.
+
+
   # GET /users
   # GET /users.xml
   def index
@@ -36,7 +41,6 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @user = User.find(params[:id])
     @title = "Edit user"
   end
 
@@ -92,6 +96,10 @@ class UsersController < ApplicationController
       deny_access unless signed_in?
     end
 
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_path) unless current_user?(@user)
+    end
 
 
 
