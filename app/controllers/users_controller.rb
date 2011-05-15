@@ -63,9 +63,10 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to(@user, :notice => 'User was successfully updated.') }
+        format.html { redirect_to(@user, :notice => 'Account info updated.') }
         format.xml  { head :ok }
       else
+        @title = "Edit user"
         format.html { render :action => "edit" }
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
       end
@@ -83,4 +84,15 @@ class UsersController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+
+  private
+
+    def authenticate
+      deny_access unless signed_in?
+    end
+
+
+
+
 end
