@@ -84,7 +84,7 @@ class UsersController < ApplicationController
     @user.destroy
 
     respond_to do |format|
-      format.html { redirect_to(home_url, :notice => 'Account deleted.') }
+      format.html { redirect_to(root_path, :notice => 'Account deleted.') }
       format.xml  { head :ok }
     end
   end
